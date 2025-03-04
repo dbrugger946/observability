@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: nodeshift-monitor
+  name: nodeshift-monitor
+  namespace: node-prom
+spec:
+  endpoints:
+    - interval: 30s
+      port: 3000-tcp
+      scheme: http
+  selector:
+    matchLabels:
+      app: node-prom

@@ -1,0 +1,12 @@
+apiVersion: monitoring.rhobs/v1
+kind: ServiceMonitor
+metadata:
+ name: coo-demo
+ labels:
+   monitoredby: coo-monitoring-stack
+spec:
+ endpoints:
+   - port: metrics
+ selector:
+   matchLabels:
+     app: coo-demo

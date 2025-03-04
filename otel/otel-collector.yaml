@@ -1,0 +1,45 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+  namespace: otel-collector1
+spec:
+  mode: deployment
+  observability:
+    metrics:
+      enableMetrics: true 
+  config: |
+    receivers:
+      # Data sources: traces, metrics, logs
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+      prometheus:
+        config:
+          scrape_configs: 
+            - job_name: 'coo-demo'  
+              scrape_interval: 5s 
+              static_configs:
+                - targets: ['coo-demo.coo-demo.svc:9000'] 
+    exporters:
+      otlp:
+        endpoint: tempo-tempo1.tempo-monolithic.svc:4317
+        tls:
+          insecure: true
+      debug:
+        verbosity: detailed   
+    processors:
+      batch: {}
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp, debug]
+        metrics:
+          receivers: [prometheus]
+          exporters: [debug]
+          
