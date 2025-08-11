@@ -1,0 +1,13 @@
+apiVersion: monitoring.rhobs/v1alpha1
+kind: MonitoringStack
+metadata:
+  name: example-coo-monitoring-stack
+  namespace: ns1-coo
+spec:
+  logLevel: debug
+  prometheusConfig:
+   replicas: 2
+  retention: 1d
+  resourceSelector:
+    matchLabels:
+      k8s-app: prometheus-coo-example-monitor

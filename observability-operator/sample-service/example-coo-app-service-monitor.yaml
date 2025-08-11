@@ -1,0 +1,15 @@
+apiVersion: monitoring.rhobs/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: prometheus-coo-example-monitor
+  name: prometheus-coo-example-monitor
+  namespace: ns1-coo
+spec:
+  endpoints:
+  - interval: 30s
+    port: web
+    scheme: http
+  selector:
+    matchLabels:
+      app: prometheus-coo-example-app

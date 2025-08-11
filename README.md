@@ -43,6 +43,10 @@ ab -n 10000 -c 100 https://node-prom-node-prom.apps.cluster-7f4n9.dynamic.redhat
 
 rate(http_request_duration_seconds_sum[5m])/rate(http_request_duration_seconds_count[5m])
 
+#### Project Level configuration of monitoring and alerts
+Uses the openshift-user-workload-monitoring components and then allows further config in user-defined projects  
+https://developers.redhat.com/articles/2023/10/03/how-configure-openshift-application-monitoring-and-alerts#
+
 
 ### OpenTelemetry
 
